@@ -1,0 +1,1694 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Velazquez · Mertins – Unternehmensberatung</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --purple: #3B0764;
+      --purple-mid: #5B1A8A;
+      --purple-light: #7B2FBE;
+      --gold: #C9A84C;
+      --gold-light: #E2C97A;
+      --bg: #F9F7F4;
+      --text: #1A1A1A;
+      --text-muted: #5A5A5A;
+      --white: #FFFFFF;
+      --radius: 12px;
+      --font-serif: Georgia, 'Times New Roman', serif;
+      --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-sans);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+      overflow-x: hidden;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 1.25rem 3rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.35s, box-shadow 0.35s;
+    }
+    nav.scrolled {
+      background: rgba(249, 247, 244, 0.97);
+      box-shadow: 0 1px 20px rgba(0,0,0,0.08);
+      backdrop-filter: blur(10px);
+    }
+    .nav-wordmark {
+      font-family: var(--font-serif);
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--white);
+      letter-spacing: 0.02em;
+      transition: color 0.35s;
+    }
+    nav.scrolled .nav-wordmark { color: var(--purple); }
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 2.5rem;
+    }
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: rgba(255,255,255,0.85);
+      text-decoration: none;
+      letter-spacing: 0.03em;
+      transition: color 0.2s;
+    }
+    nav.scrolled .nav-links a { color: var(--text-muted); }
+    .nav-links a:hover { color: var(--gold) !important; }
+
+    .lang-toggle {
+      display: flex;
+      gap: 0;
+      background: rgba(255,255,255,0.15);
+      border-radius: 20px;
+      overflow: hidden;
+      transition: background 0.35s;
+    }
+    nav.scrolled .lang-toggle { background: rgba(59,7,100,0.08); }
+    .lang-toggle button {
+      background: none;
+      border: none;
+      padding: 0.3rem 0.75rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      cursor: pointer;
+      color: rgba(255,255,255,0.6);
+      transition: color 0.2s, background 0.2s;
+    }
+    nav.scrolled .lang-toggle button { color: var(--text-muted); }
+    .lang-toggle button.active {
+      background: var(--gold);
+      color: var(--purple) !important;
+      border-radius: 20px;
+    }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 4px;
+    }
+    .hamburger span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--white);
+      transition: background 0.35s;
+    }
+    nav.scrolled .hamburger span { background: var(--purple); }
+
+    /* HERO */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 6rem 2rem 4rem;
+      position: relative;
+      overflow: hidden;
+      background: var(--purple);
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 20% 20%, rgba(91,26,138,0.6) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 50% at 80% 80%, rgba(123,47,190,0.4) 0%, transparent 55%),
+        linear-gradient(160deg, #3B0764 0%, #2A0449 60%, #1A0230 100%);
+      animation: bgPulse 8s ease-in-out infinite alternate;
+    }
+    @keyframes bgPulse {
+      0%   { opacity: 1; }
+      100% { opacity: 0.85; }
+    }
+    .hero-geo {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+    }
+    @keyframes rippleOut {
+      0%   { transform: scale(0.55); opacity: 0; }
+      12%  { opacity: 0.38; }
+      100% { transform: scale(1.55); opacity: 0; }
+    }
+    .hero-geo::before,
+    .hero-geo::after,
+    .hero-geo .ring { border-radius: 50%; position: absolute; }
+
+    .hero-geo::before {
+      content: '';
+      width: 560px; height: 560px;
+      border: 2px solid rgba(201,168,76,0.35);
+      top: -140px; right: -140px;
+      animation: rippleOut 4s ease-out infinite;
+    }
+    .hero-geo::after {
+      content: '';
+      width: 380px; height: 380px;
+      border: 2px solid rgba(201,168,76,0.28);
+      bottom: -95px; left: -95px;
+      animation: rippleOut 4s ease-out infinite 2s;
+    }
+    /* Secondary rings — same centres, delayed */
+    .hero-geo .ring-tr {
+      width: 560px; height: 560px;
+      border: 2px solid rgba(201,168,76,0.22);
+      top: -140px; right: -140px;
+      animation: rippleOut 4s ease-out infinite 1.33s;
+    }
+    .hero-geo .ring-bl {
+      width: 380px; height: 380px;
+      border: 2px solid rgba(201,168,76,0.18);
+      bottom: -95px; left: -95px;
+      animation: rippleOut 4s ease-out infinite 3.33s;
+    }
+    .hero-content { position: relative; z-index: 1; max-width: 860px; }
+    .hero-eyebrow {
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.5rem;
+    }
+    .hero-title {
+      font-family: var(--font-serif);
+      font-size: clamp(2rem, 5vw, 3.6rem);
+      font-weight: 700;
+      line-height: 1.15;
+      color: var(--white);
+      margin-bottom: 1.5rem;
+      white-space: nowrap;
+    }
+    @media (max-width: 700px) {
+      .hero-title { white-space: normal; font-size: clamp(1.6rem, 7vw, 2.4rem); }
+    }
+    .hero-title .sep {
+      color: var(--gold);
+      font-weight: 300;
+      font-style: italic;
+      margin: 0 0.35em;
+      opacity: 0.85;
+    }
+    .hero-subtitle {
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      font-weight: 300;
+      color: rgba(255,255,255,0.75);
+      max-width: 580px;
+      margin: 0 auto 2.5rem;
+    }
+    .btn-gold {
+      display: inline-block;
+      padding: 0.9rem 2.2rem;
+      background: var(--gold);
+      color: var(--purple);
+      font-weight: 600;
+      font-size: 0.9rem;
+      letter-spacing: 0.05em;
+      text-decoration: none;
+      border-radius: 50px;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 20px rgba(201,168,76,0.3);
+    }
+    .btn-gold:hover {
+      background: var(--gold-light);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(201,168,76,0.4);
+    }
+    .hero-scroll {
+      position: absolute;
+      bottom: 2.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.4rem;
+      color: rgba(255,255,255,0.4);
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    .scroll-line {
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(to bottom, rgba(201,168,76,0.6), transparent);
+      animation: scrollDown 2s ease-in-out infinite;
+    }
+    @keyframes scrollDown {
+      0%, 100% { transform: scaleY(1); opacity: 1; }
+      50% { transform: scaleY(0.5); opacity: 0.4; }
+    }
+
+    /* SECTIONS */
+    section { padding: 7rem 2rem; }
+    .container { max-width: 1100px; margin: 0 auto; }
+    .section-label {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.75rem;
+    }
+    .section-title {
+      font-family: var(--font-serif);
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 700;
+      line-height: 1.15;
+      color: var(--purple);
+      margin-bottom: 1.25rem;
+    }
+    .gold-divider {
+      width: 48px;
+      height: 2px;
+      background: var(--gold);
+      margin-bottom: 2.5rem;
+    }
+
+    /* ABOUT */
+    #about { background: var(--white); }
+    .about-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+    .about-text p {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      line-height: 1.8;
+    }
+    .about-cards {
+      display: flex;
+      gap: 1.5rem;
+    }
+    .person-card {
+      flex: 1;
+      background: var(--bg);
+      border-radius: var(--radius);
+      padding: 2rem 1.5rem;
+      text-align: center;
+      border: 1px solid rgba(59,7,100,0.06);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .person-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(59,7,100,0.12);
+    }
+    .avatar {
+      width: 72px; height: 72px;
+      border-radius: 50%;
+      background: var(--purple);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1.25rem;
+      font-family: var(--font-serif);
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: var(--gold);
+      border: 2px solid var(--gold);
+    }
+    .avatar-photo {
+      width: 150px; height: 150px;
+      border-radius: 50%;
+      object-fit: cover;
+      display: block;
+      margin: 0 auto 1.25rem;
+      border: 2px solid var(--gold);
+      box-shadow: 0 4px 20px rgba(59,7,100,0.15);
+    }
+    .person-name {
+      font-family: var(--font-serif);
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--purple);
+      margin-bottom: 0.3rem;
+    }
+    .person-role {
+      font-size: 0.8rem;
+      color: var(--gold);
+      font-weight: 500;
+      letter-spacing: 0.05em;
+    }
+
+    /* SERVICES */
+    #services {
+      background: linear-gradient(175deg, var(--bg) 0%, #F0EBF8 100%);
+    }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+    .service-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 2rem 1.75rem;
+      border: 1px solid transparent;
+      transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+      cursor: default;
+    }
+    .service-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 16px 48px rgba(59,7,100,0.12);
+      border-color: var(--gold);
+    }
+    .service-icon {
+      width: 44px; height: 44px;
+      margin-bottom: 1.25rem;
+      color: var(--gold);
+      transition: color 0.25s ease;
+    }
+    .service-card:hover .service-icon { color: var(--gold-light); }
+
+    /* — Process: slow sequential appearance — */
+    .proc-c1, .proc-a1, .proc-rect, .proc-a2, .proc-c2 { stroke-dashoffset: 0; }
+    .proc-c1   { stroke-dasharray: 11; --len: 11; }
+    .proc-a1   { stroke-dasharray: 14; --len: 14; }
+    .proc-rect { stroke-dasharray: 18; --len: 18; }
+    .proc-a2   { stroke-dasharray: 14; --len: 14; }
+    .proc-c2   { stroke-dasharray: 11; --len: 11; }
+    @keyframes procDraw {
+      from { stroke-dashoffset: var(--len); opacity: 0; }
+      40%  { opacity: 1; }
+      to   { stroke-dashoffset: 0; opacity: 1; }
+    }
+    .service-card:hover .proc-c1   { animation: procDraw 0.6s ease both 0s;    }
+    .service-card:hover .proc-a1   { animation: procDraw 0.6s ease both 0.6s;  }
+    .service-card:hover .proc-rect { animation: procDraw 0.6s ease both 1.2s;  }
+    .service-card:hover .proc-a2   { animation: procDraw 0.6s ease both 1.8s;  }
+    .service-card:hover .proc-c2   { animation: procDraw 0.6s ease both 2.4s;  }
+
+    /* — KI Audit: rays emerge from circle edge and retract — */
+    .ray { stroke-dasharray: 4; }
+    @keyframes rayExtend {
+      0%, 100% { stroke-dashoffset: 4; }
+      50%       { stroke-dashoffset: 0; }
+    }
+    .service-card:hover .ray { animation: rayExtend 2s ease-in-out infinite; }
+
+    /* — Digitalisierung: bolt spins — */
+    .bolt { transform-box: fill-box; transform-origin: center; }
+    @keyframes boltSpin { to { transform: rotate(360deg); } }
+    .service-card:hover .bolt { animation: boltSpin 2s ease-in-out forwards; }
+
+    /* — Digital Twin: inner circle spins — */
+    .twin-circle { transform-box: fill-box; transform-origin: center; }
+    @keyframes circleSpin { to { transform: rotate(360deg); } }
+    .service-card:hover .twin-circle { animation: circleSpin 2s linear infinite; }
+
+    /* — Web Design: h-line then v-line draw in — */
+    .web-h { stroke-dasharray: 20; }
+    .web-v { stroke-dasharray: 14; }
+    @keyframes drawWebH { from { stroke-dashoffset: 20; } to { stroke-dashoffset: 0; } }
+    @keyframes drawWebV { from { stroke-dashoffset: 14; } to { stroke-dashoffset: 0; } }
+    .service-card:hover .web-h { animation: drawWebH 1s ease forwards; }
+    .service-card:hover .web-v { animation: drawWebV 1s ease forwards 0.9s; }
+
+    /* — Change Management: person duplicates on hover — */
+    .cm-shadow {
+      opacity: 0;
+      transform: translateX(-5px);
+      transition: transform 2s cubic-bezier(0.34, 1.1, 0.64, 1), opacity 1.2s ease;
+    }
+    .service-card:hover .cm-shadow {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    .service-title {
+      font-family: var(--font-serif);
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--purple);
+      margin-bottom: 0.6rem;
+      line-height: 1.3;
+    }
+    .service-desc {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+
+    /* PROCESS STEPS */
+    #process { background: var(--white); }
+    .process-steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+    }
+    .process-step {
+      background: var(--bg);
+      border-radius: var(--radius);
+      padding: 2rem 1.5rem;
+      text-align: center;
+      border: 1px solid transparent;
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+    .process-step:hover {
+      border-color: var(--gold);
+      box-shadow: 0 8px 30px rgba(59,7,100,0.08);
+    }
+    .step-number {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 42px; height: 42px;
+      border-radius: 50%;
+      background: var(--purple);
+      color: var(--gold);
+      font-family: var(--font-serif);
+      font-size: 0.95rem;
+      font-weight: 700;
+      margin: 0 auto 1.25rem;
+    }
+    .step-title {
+      font-family: var(--font-serif);
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--purple);
+      margin-bottom: 0.6rem;
+    }
+    .step-desc {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+    @media (max-width: 900px) {
+      .process-steps { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 580px) {
+      .process-steps { grid-template-columns: 1fr; }
+    }
+
+    /* BACKGROUND */
+    #background { background: var(--white); }
+    .bg-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+    }
+    .bg-person h3 {
+      font-family: var(--font-serif);
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--purple);
+      margin-bottom: 0.3rem;
+    }
+    .bg-role {
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.75rem;
+    }
+    .timeline { list-style: none; }
+    .timeline li {
+      position: relative;
+      padding: 0 0 1.5rem 1.5rem;
+      border-left: 1px solid rgba(201,168,76,0.25);
+    }
+    .timeline li:last-child { padding-bottom: 0; }
+    .timeline li::before {
+      content: '';
+      position: absolute;
+      left: -5px; top: 6px;
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--gold);
+    }
+    .tl-org {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.2rem;
+    }
+    .tl-desc {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.65;
+    }
+
+    /* WHY US */
+    #why {
+      background: linear-gradient(160deg, #2A0449 0%, #3B0764 50%, #1A0230 100%);
+    }
+    #why .section-title { color: var(--white); }
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+    }
+    .why-card {
+      padding: 2rem 1.5rem;
+      border: 1px solid rgba(201,168,76,0.2);
+      border-radius: var(--radius);
+      transition: border-color 0.3s, background 0.3s;
+    }
+    .why-card:hover {
+      border-color: rgba(201,168,76,0.6);
+      background: rgba(255,255,255,0.04);
+    }
+    .why-icon {
+      width: 40px; height: 40px;
+      color: var(--gold);
+      margin-bottom: 1.25rem;
+    }
+
+    /* — Messbare Ergebnisse: volatile upward chart draws left-to-right — */
+    .chart-line { stroke-dasharray: 24; }
+    .chart-dot  { opacity: 0; transition: opacity 0.3s ease; }
+    @keyframes chartDraw {
+      from { stroke-dashoffset: 24; }
+      to   { stroke-dashoffset: 0; }
+    }
+    .why-card:hover .chart-line { animation: chartDraw 2s ease forwards; }
+    .why-card:hover .chart-dot  { opacity: 1; transition-delay: 1.9s; }
+
+    /* — DACH: flags orbit without spinning (counter-rotation trick) — */
+    .fo  { transform-origin: 12px 12px; }
+    .fo2 { transform: rotate(120deg); }
+    .fo3 { transform: rotate(240deg); }
+    .fc  { transform-box: fill-box; transform-origin: center; }
+    .fo2 .fc { transform: rotate(-120deg); }
+    .fo3 .fc { transform: rotate(-240deg); }
+    @keyframes orbitFwd { from { transform: rotate(0deg); }   to { transform: rotate(360deg); } }
+    @keyframes orbitBwd { from { transform: rotate(0deg); }   to { transform: rotate(-360deg); } }
+    .why-card:hover .fo1     { animation: orbitFwd 4s linear infinite 0s;     }
+    .why-card:hover .fo2     { animation: orbitFwd 4s linear infinite -1.33s; }
+    .why-card:hover .fo3     { animation: orbitFwd 4s linear infinite -2.67s; }
+    .why-card:hover .fo1 .fc { animation: orbitBwd 4s linear infinite 0s;     }
+    .why-card:hover .fo2 .fc { animation: orbitBwd 4s linear infinite -1.33s; }
+    .why-card:hover .fo3 .fc { animation: orbitBwd 4s linear infinite -2.67s; }
+
+    /* — End-to-End: circle–arrow–circle draws in like chart stroke — */
+    .e2e-c1, .e2e-c2 { stroke-dasharray: 17; --len: 17; stroke-dashoffset: 0; }
+    .e2e-a1           { stroke-dasharray: 19; --len: 19; stroke-dashoffset: 0; }
+    .why-card:hover .e2e-c1 { animation: procDraw 1s ease both 0s;   }
+    .why-card:hover .e2e-a1 { animation: procDraw 1s ease both 0.9s; }
+    .why-card:hover .e2e-c2 { animation: procDraw 1s ease both 1.8s; }
+
+    /* — DSGVO: checkmark draws into shield — */
+    .dsgvo-check { stroke-dasharray: 9; }
+    @keyframes checkDraw {
+      from { stroke-dashoffset: 9; }
+      to   { stroke-dashoffset: 0; }
+    }
+    .why-card:hover .dsgvo-check { animation: checkDraw 2s ease forwards; }
+    .why-title {
+      font-family: var(--font-serif);
+      font-size: 1.15rem;
+      color: var(--white);
+      margin-bottom: 0.6rem;
+    }
+    .why-desc {
+      font-size: 0.875rem;
+      color: rgba(255,255,255,0.6);
+      line-height: 1.7;
+    }
+
+    /* CONTACT */
+    #contact { background: var(--bg); }
+    .contact-inner {
+      max-width: 680px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .contact-inner .section-title { margin-bottom: 0.5rem; }
+    .contact-sub {
+      font-size: 1rem;
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+    }
+    .contact-email {
+      display: inline-block;
+      font-size: 1.05rem;
+      font-weight: 500;
+      color: var(--gold);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.2s;
+      margin-bottom: 3rem;
+    }
+    .contact-email:hover { border-color: var(--gold); }
+    .contact-form { text-align: left; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+    .form-group { display: flex; flex-direction: column; gap: 0.4rem; margin-bottom: 1rem; }
+    .form-group label {
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+    .form-group input,
+    .form-group textarea {
+      font-family: var(--font-sans);
+      font-size: 0.95rem;
+      padding: 0.85rem 1rem;
+      background: var(--white);
+      border: 1px solid rgba(59,7,100,0.12);
+      border-radius: 8px;
+      color: var(--text);
+      transition: border-color 0.2s, box-shadow 0.2s;
+      outline: none;
+    }
+    .form-group input:focus,
+    .form-group textarea:focus {
+      border-color: var(--gold);
+      box-shadow: 0 0 0 3px rgba(201,168,76,0.12);
+    }
+    .form-group textarea { resize: vertical; min-height: 130px; }
+    .form-submit { text-align: center; margin-top: 0.5rem; }
+    .success-msg {
+      display: none;
+      margin-top: 1.5rem;
+      padding: 1rem 1.5rem;
+      background: rgba(59,7,100,0.06);
+      border: 1px solid var(--gold);
+      border-radius: 8px;
+      text-align: center;
+      font-size: 0.9rem;
+      color: var(--purple);
+      font-weight: 500;
+    }
+
+    /* FOOTER */
+    footer {
+      background: linear-gradient(160deg, #1A0230 0%, #2A0449 100%);
+      padding: 3.5rem 2rem 2rem;
+      text-align: center;
+    }
+    .footer-names {
+      font-family: var(--font-serif);
+      font-size: 1.3rem;
+      color: var(--gold);
+      margin-bottom: 1.5rem;
+    }
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      list-style: none;
+      margin-bottom: 1.5rem;
+    }
+    .footer-links a {
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.4);
+      text-decoration: none;
+      letter-spacing: 0.05em;
+      transition: color 0.2s;
+      cursor: pointer;
+    }
+    .footer-links a:hover { color: var(--gold); }
+    .footer-copy {
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.25);
+    }
+
+    /* FADE IN */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+    .fade-in.delay-1 { transition-delay: 0.1s; }
+    .fade-in.delay-2 { transition-delay: 0.2s; }
+    .fade-in.delay-3 { transition-delay: 0.3s; }
+    .fade-in.delay-4 { transition-delay: 0.4s; }
+    .fade-in.delay-5 { transition-delay: 0.5s; }
+
+    /* COMPLIANCE */
+    #compliance { background: var(--bg); }
+    .compliance-lead {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      line-height: 1.8;
+      max-width: 680px;
+      margin-top: 0;
+    }
+    .law-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+      margin-bottom: 4rem;
+    }
+    .law-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 1.5rem 1.25rem;
+      border-top: 3px solid var(--gold);
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .law-name {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+    .law-obligation {
+      font-family: var(--font-serif);
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--purple);
+      line-height: 1.35;
+      flex: 1;
+    }
+    .law-date {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      background: var(--purple);
+      color: var(--gold);
+      border-radius: 20px;
+      padding: 0.2rem 0.75rem;
+      width: fit-content;
+      letter-spacing: 0.03em;
+      margin-top: 0.25rem;
+    }
+    .compliance-split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3.5rem;
+      align-items: start;
+    }
+    .pain-heading, .solution-heading {
+      font-family: var(--font-serif);
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--purple);
+      margin-bottom: 1.25rem;
+    }
+    .pain-list { list-style: none; }
+    .pain-list li {
+      position: relative;
+      padding: 0.7rem 0 0.7rem 1.5rem;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.65;
+      border-bottom: 1px solid rgba(59,7,100,0.07);
+    }
+    .pain-list li:last-child { border-bottom: none; }
+    .pain-list li::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 50%;
+      transform: translateY(-50%);
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--gold);
+    }
+    .solution-text {
+      font-size: 1rem;
+      color: var(--text-muted);
+      line-height: 1.8;
+      margin-bottom: 1.75rem;
+    }
+    .pillar-row {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+    .pillar {
+      font-family: var(--font-serif);
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--white);
+      background: var(--purple);
+      border-radius: 50px;
+      padding: 0.5rem 1.25rem;
+      letter-spacing: 0.02em;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      nav { padding: 1.25rem 1.5rem; }
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .about-inner { grid-template-columns: 1fr; gap: 3rem; }
+      .services-grid { grid-template-columns: repeat(2, 1fr); }
+      .bg-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .why-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+      .form-row { grid-template-columns: 1fr; }
+      .law-row { grid-template-columns: repeat(2, 1fr); }
+      .compliance-split { grid-template-columns: 1fr; gap: 2.5rem; }
+    }
+    @media (max-width: 580px) {
+      section { padding: 5rem 1.25rem; }
+      .services-grid { grid-template-columns: 1fr; }
+      .about-cards { flex-direction: column; }
+      .law-row { grid-template-columns: 1fr; }
+    }
+
+    /* MOBILE NAV DRAWER */
+    .nav-drawer {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(26,2,48,0.97);
+      z-index: 99;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2.5rem;
+    }
+    .nav-drawer.open { display: flex; }
+    .nav-drawer a {
+      font-family: var(--font-serif);
+      font-size: 1.6rem;
+      color: var(--white);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-drawer a:hover { color: var(--gold); }
+    .drawer-close {
+      position: absolute;
+      top: 1.5rem; right: 1.5rem;
+      background: none;
+      border: none;
+      color: rgba(255,255,255,0.5);
+      font-size: 1.5rem;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+    .drawer-close:hover { color: var(--gold); }
+
+    /* IMPRESSUM MODAL */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(10,0,20,0.72);
+      z-index: 200;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      backdrop-filter: blur(4px);
+    }
+    .modal-overlay.open { display: flex; }
+    .modal-box {
+      background: var(--white);
+      border-radius: 16px;
+      padding: 3rem 2.5rem 2.5rem;
+      max-width: 520px;
+      width: 100%;
+      position: relative;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+    .modal-close {
+      position: absolute;
+      top: 1.25rem; right: 1.25rem;
+      background: none;
+      border: none;
+      font-size: 1.2rem;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+    .modal-close:hover { color: var(--purple); }
+    .modal-label {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.5rem;
+    }
+    .modal-title {
+      font-family: var(--font-serif);
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--purple);
+      margin-bottom: 0.75rem;
+    }
+    .modal-divider {
+      width: 36px; height: 2px;
+      background: var(--gold);
+      margin-bottom: 1.75rem;
+    }
+    .modal-section {
+      margin-bottom: 1.5rem;
+    }
+    .modal-section h4 {
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 0.4rem;
+    }
+    .modal-section p, .modal-section a {
+      font-size: 0.95rem;
+      color: var(--text);
+      line-height: 1.7;
+    }
+    .modal-section a {
+      color: var(--gold);
+      text-decoration: none;
+    }
+    .modal-section a:hover { text-decoration: underline; }
+    .modal-note {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      border-top: 1px solid rgba(0,0,0,0.07);
+      padding-top: 1.25rem;
+      line-height: 1.7;
+    }
+
+    /* REFERENCES TICKER */
+    #references {
+      padding: 3.5rem 0;
+      background: var(--white);
+      border-top: 1px solid rgba(59,7,100,0.07);
+      border-bottom: 1px solid rgba(59,7,100,0.07);
+      overflow: hidden;
+    }
+    #references .ref-label {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .ticker-wrap {
+      overflow: hidden;
+      width: 100%;
+      -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+      mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+    }
+    .ticker-track {
+      display: flex;
+      align-items: center;
+      gap: 2.5rem;
+      animation: ticker 28s linear infinite;
+      width: max-content;
+    }
+    .ticker-track:hover { animation-play-state: paused; }
+    @keyframes ticker {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    .ticker-logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.7rem 1.75rem;
+      background: var(--bg);
+      border: 1px solid rgba(59,7,100,0.09);
+      border-radius: 8px;
+      font-family: var(--font-sans);
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      letter-spacing: 0.04em;
+      white-space: nowrap;
+      min-width: 130px;
+      text-align: center;
+      opacity: 0.7;
+      transition: opacity 0.2s;
+    }
+    .ticker-logo:hover { opacity: 1; }
+
+    /* COOKIE BANNER */
+    .cookie-banner {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      z-index: 150;
+      background: rgba(26,2,48,0.97);
+      backdrop-filter: blur(8px);
+      border-top: 1px solid rgba(201,168,76,0.2);
+      padding: 1.25rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+      transform: translateY(0);
+      transition: transform 0.4s ease;
+    }
+    .cookie-banner.hidden { transform: translateY(110%); }
+    .cookie-text {
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.7);
+      line-height: 1.6;
+      max-width: 700px;
+    }
+    .cookie-text a {
+      color: var(--gold);
+      text-decoration: none;
+    }
+    .cookie-text a:hover { text-decoration: underline; }
+    .cookie-actions {
+      display: flex;
+      gap: 0.75rem;
+      flex-shrink: 0;
+    }
+    .cookie-btn {
+      padding: 0.55rem 1.4rem;
+      border-radius: 50px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      cursor: pointer;
+      border: none;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .cookie-btn:hover { transform: translateY(-1px); }
+    .cookie-btn.accept {
+      background: var(--gold);
+      color: var(--purple);
+    }
+    .cookie-btn.accept:hover { background: var(--gold-light); }
+    .cookie-btn.decline {
+      background: transparent;
+      color: rgba(255,255,255,0.5);
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+    .cookie-btn.decline:hover { color: var(--white); border-color: rgba(255,255,255,0.4); }
+    @media (max-width: 700px) {
+      .cookie-banner { flex-direction: column; align-items: flex-start; gap: 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <div class="nav-wordmark">V · M</div>
+  <div class="nav-right">
+    <ul class="nav-links">
+      <li><a href="#about"      data-de="Über uns"      data-en="About">Über uns</a></li>
+      <li><a href="#compliance" data-de="Regulierung"  data-en="Regulation">Regulierung</a></li>
+      <li><a href="#services"   data-de="Leistungen"   data-en="Services">Leistungen</a></li>
+      <li><a href="#process"    data-de="Vorgehen"    data-en="Approach">Vorgehen</a></li>
+      <li><a href="#background" data-de="Hintergrund" data-en="Background">Hintergrund</a></li>
+      <li><a href="#contact"    data-de="Kontakt"     data-en="Contact">Kontakt</a></li>
+    </ul>
+    <div class="lang-toggle">
+      <button id="btn-de" class="active" onclick="setLang('de')">DE</button>
+      <button id="btn-en" onclick="setLang('en')">EN</button>
+    </div>
+    <button class="hamburger" onclick="openDrawer()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- Mobile nav drawer -->
+<div class="nav-drawer" id="navDrawer">
+  <button class="drawer-close" onclick="closeDrawer()">✕</button>
+  <a href="#about"      onclick="closeDrawer()" data-de="Über uns"     data-en="About">Über uns</a>
+  <a href="#compliance" onclick="closeDrawer()" data-de="Regulierung"  data-en="Regulation">Regulierung</a>
+  <a href="#services"   onclick="closeDrawer()" data-de="Leistungen"   data-en="Services">Leistungen</a>
+  <a href="#process"    onclick="closeDrawer()" data-de="Vorgehen"    data-en="Approach">Vorgehen</a>
+  <a href="#background" onclick="closeDrawer()" data-de="Hintergrund" data-en="Background">Hintergrund</a>
+  <a href="#contact"    onclick="closeDrawer()" data-de="Kontakt"     data-en="Contact">Kontakt</a>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-geo">
+    <div class="ring ring-tr"></div>
+    <div class="ring ring-bl"></div>
+  </div>
+  <div class="hero-content">
+    <p class="hero-eyebrow" data-de="Unternehmensberatung" data-en="Management Consulting">Unternehmensberatung</p>
+    <h1 class="hero-title">
+      Yanays Velazquez<span class="sep">·</span>Hannes Mertins
+    </h1>
+    <p class="hero-subtitle" data-de="Wir analysieren Ihre Prozesse und wissen, wo KI wirklich hilft. Und wo nicht. Konkret, messbar, für den Mittelstand." data-en="We analyse your processes and know exactly where AI genuinely helps. And where it doesn't. Concrete, measurable, built for the mid-market.">
+      Wir analysieren Ihre Prozesse und wissen, wo KI wirklich hilft. Und wo nicht. Konkret, messbar, für den Mittelstand.
+    </p>
+    <a href="#contact" class="btn-gold" data-de="Kontakt aufnehmen" data-en="Get in Touch">Kontakt aufnehmen</a>
+  </div>
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    <span data-de="Mehr entdecken" data-en="Discover more">Mehr entdecken</span>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <div class="about-inner">
+      <div class="about-text fade-in">
+        <p class="section-label" data-de="Über uns" data-en="About Us">Über uns</p>
+        <h2 class="section-title" data-de="Wir vereinen Erfahrung und Innovation" data-en="Experience and Innovation, United">Wir vereinen Erfahrung und Innovation</h2>
+        <div class="gold-divider"></div>
+        <p data-de="Prozessberater ohne KI-Kompetenz sehen nur die halbe Lösung. KI-Anbieter ohne Prozessverständnis implementieren an der falschen Stelle. Wir vereinen beides: tiefes Prozess-Know-how und KI-Kompetenz aus einer Hand. Das Ergebnis: Sie wissen genau, welche Veränderung was bringt. Für unsere Kunden bedeutet das konkret: mehr Transparenz, bessere Steuerungsmöglichkeiten und klarer Durchblick im Zeitalter der Digitalisierung. Niedrigere Kosten, höhere Umsätze, bessere Margen."
+           data-en="Process consultants without AI expertise only see half the picture. AI vendors without process knowledge implement in the wrong place. We combine both: deep process expertise and AI capability in one place. The result: you know exactly which change delivers what. For our clients this means in practice: more transparency, better control, and a clear overview in the age of digitalisation. Lower costs, higher revenues, better margins.">
+          Prozessberater ohne KI-Kompetenz sehen nur die halbe Lösung. KI-Anbieter ohne Prozessverständnis implementieren an der falschen Stelle. Wir vereinen beides: tiefes Prozess-Know-how und KI-Kompetenz aus einer Hand. Das Ergebnis: Sie wissen genau, welche Veränderung was bringt. Für unsere Kunden bedeutet das konkret: mehr Transparenz, bessere Steuerungsmöglichkeiten und klarer Durchblick im Zeitalter der Digitalisierung. Niedrigere Kosten, höhere Umsätze, bessere Margen.
+        </p>
+      </div>
+      <div class="about-cards">
+        <div class="person-card fade-in delay-1">
+          <img class="avatar-photo" src="images website/Yanays 123-Bearbeitet.jpg" alt="Yanays Velazquez" style="object-position: center 15%;" />
+          <p class="person-name">Yanays Velazquez</p>
+          <p class="person-role" data-de="Prozesse &amp; Transformation" data-en="Process &amp; Transformation">Prozesse &amp; Transformation</p>
+        </div>
+        <div class="person-card fade-in delay-2">
+          <img class="avatar-photo" src="images website/hannes_website.jpg" alt="Hannes Mertins" style="object-position: center 20%;" />
+          <p class="person-name">Hannes Mertins</p>
+          <p class="person-role" data-de="KI &amp; Digitalisierung" data-en="AI &amp; Digitalisation">KI &amp; Digitalisierung</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REFERENCES TICKER -->
+<section id="references">
+  <div class="ref-label">
+    <p class="section-label" data-de="Referenzen" data-en="References">Referenzen</p>
+  </div>
+  <div class="ticker-wrap">
+    <div class="ticker-track">
+      <span class="ticker-logo">Mustermann GmbH</span>
+      <span class="ticker-logo">Beispiel AG</span>
+      <span class="ticker-logo">Alpha Gruppe</span>
+      <span class="ticker-logo">Beta Consulting</span>
+      <span class="ticker-logo">Gamma &amp; Co.</span>
+      <span class="ticker-logo">Delta KG</span>
+      <span class="ticker-logo">Epsilon GmbH</span>
+      <span class="ticker-logo">Zeta Partners</span>
+      <!-- duplicate for seamless loop -->
+      <span class="ticker-logo">Mustermann GmbH</span>
+      <span class="ticker-logo">Beispiel AG</span>
+      <span class="ticker-logo">Alpha Gruppe</span>
+      <span class="ticker-logo">Beta Consulting</span>
+      <span class="ticker-logo">Gamma &amp; Co.</span>
+      <span class="ticker-logo">Delta KG</span>
+      <span class="ticker-logo">Epsilon GmbH</span>
+      <span class="ticker-logo">Zeta Partners</span>
+    </div>
+  </div>
+</section>
+
+<!-- COMPLIANCE -->
+<section id="compliance">
+  <div class="container">
+    <div class="fade-in" style="margin-bottom: 3rem;">
+      <p class="section-label" data-de="Gesundheitswesen" data-en="Healthcare">Gesundheitswesen</p>
+      <h2 class="section-title" data-de="Digitalisierung ist gesetzlich vorgegeben" data-en="Digitalisation is legally mandated">Digitalisierung ist gesetzlich vorgegeben</h2>
+      <div class="gold-divider"></div>
+      <p class="compliance-lead" data-de="Das Gesundheitswesen steht unter gesetzlichem Zugzwang. DigiG, DVG und verwandte Gesetze verpflichten Praxen, Pflegeeinrichtungen und deren Dienstleister zur digitalen Transformation. Wer nicht handelt, riskiert Honorarkürzungen, Ausschluss aus Abrechnungssystemen und den Verlust von Geschäftsbeziehungen." data-en="The healthcare sector is under legal pressure to act. The DigiG, DVG and related legislation mandate practices, care facilities and their service providers to digitally transform. Those who fail to act risk fee reductions, exclusion from billing systems and the loss of business relationships.">
+        Das Gesundheitswesen steht unter gesetzlichem Zugzwang. DigiG, DVG und verwandte Gesetze verpflichten Praxen, Pflegeeinrichtungen und deren Dienstleister zur digitalen Transformation. Wer nicht handelt, riskiert Honorarkürzungen, Ausschluss aus Abrechnungssystemen und den Verlust von Geschäftsbeziehungen.
+      </p>
+    </div>
+
+    <div class="law-row fade-in">
+      <div class="law-card">
+        <span class="law-name">DigiG 2024</span>
+        <p class="law-obligation" data-de="ePA-Anschluss verpflichtend für alle Praxen" data-en="ePA connection mandatory for all practices">ePA-Anschluss verpflichtend für alle Praxen</p>
+        <span class="law-date" data-de="seit 01.01.2026" data-en="since 01.01.2026">seit 01.01.2026</span>
+      </div>
+      <div class="law-card">
+        <span class="law-name">E-Rezept</span>
+        <p class="law-obligation" data-de="Papierrezept vollständig abgelöst" data-en="Paper prescription fully replaced">Papierrezept vollständig abgelöst</p>
+        <span class="law-date" data-de="seit 2024" data-en="since 2024">seit 2024</span>
+      </div>
+      <div class="law-card">
+        <span class="law-name">eAU</span>
+        <p class="law-obligation" data-de="Elektronische Krankmeldung verpflichtend" data-en="Electronic sick note mandatory">Elektronische Krankmeldung verpflichtend</p>
+        <span class="law-date" data-de="seit 01.01.2023" data-en="since 01.01.2023">seit 01.01.2023</span>
+      </div>
+      <div class="law-card">
+        <span class="law-name">KIM</span>
+        <p class="law-obligation" data-de="Digitale Kommunikation im Medizinwesen" data-en="Digital communication in healthcare">Digitale Kommunikation im Medizinwesen</p>
+        <span class="law-date" data-de="ab 01.01.2027" data-en="from 01.01.2027">ab 01.01.2027</span>
+      </div>
+    </div>
+
+    <div class="compliance-split">
+      <div class="pain-side fade-in">
+        <p class="pain-heading" data-de="Wo die meisten KMU stehen" data-en="Where most SMEs stand today">Wo die meisten KMU stehen</p>
+        <ul class="pain-list">
+          <li data-de="Gesetzliche Anforderungen nicht vollständig verstanden" data-en="Legal requirements not fully understood">Gesetzliche Anforderungen nicht vollständig verstanden</li>
+          <li data-de="Prozesse auf Papier, Excel und Insellösungen verteilt" data-en="Processes spread across paper, Excel and isolated systems">Prozesse auf Papier, Excel und Insellösungen verteilt</li>
+          <li data-de="Keine klare Vorstellung, was eine Umsetzung kostet" data-en="No clear picture of what implementation will cost">Keine klare Vorstellung, was eine Umsetzung kostet</li>
+          <li data-de="Kein internes Know-how, wo und wie anfangen" data-en="No internal know-how on where and how to start">Kein internes Know-how, wo und wie anfangen</li>
+        </ul>
+      </div>
+      <div class="solution-side fade-in delay-2">
+        <p class="solution-heading" data-de="Genau da setzen wir an" data-en="That is exactly where we step in">Genau da setzen wir an</p>
+        <p class="solution-text" data-de="Die meisten KMU brauchen keinen weiteren IT-Anbieter. Sie brauchen jemanden, der die Gesetze kennt, ihre Prozesse versteht und beides zusammenführt. Wir übersetzen regulatorische Anforderungen in konkrete Maßnahmen, strukturieren Ihre Abläufe und begleiten die Umsetzung Schritt für Schritt." data-en="Most SMEs don't need another IT vendor. They need someone who knows the regulations, understands their processes and bridges the two. We translate regulatory requirements into concrete actions, structure your workflows and guide implementation step by step.">
+          Die meisten KMU brauchen keinen weiteren IT-Anbieter. Sie brauchen jemanden, der die Gesetze kennt, ihre Prozesse versteht und beides zusammenführt. Wir übersetzen regulatorische Anforderungen in konkrete Maßnahmen, strukturieren Ihre Abläufe und begleiten die Umsetzung Schritt für Schritt.
+        </p>
+        <div class="pillar-row">
+          <span class="pillar" data-de="Übersetzer" data-en="Translator">Übersetzer</span>
+          <span class="pillar" data-de="Strukturierer" data-en="Structurer">Strukturierer</span>
+          <span class="pillar" data-de="Umsetzer" data-en="Implementor">Umsetzer</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="container">
+    <div class="fade-in" style="text-align:center; margin-bottom:3.5rem;">
+      <p class="section-label" data-de="Leistungen" data-en="Services">Leistungen</p>
+      <h2 class="section-title" data-de="Was wir anbieten" data-en="What We Offer">Was wir anbieten</h2>
+      <div class="gold-divider" style="margin:0 auto 0;"></div>
+    </div>
+    <div class="services-grid">
+
+      <div class="service-card fade-in delay-1">
+        <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <circle class="proc-c1" cx="2.5" cy="12" r="1.5"/>
+          <path class="proc-a1" d="M4.5 12h5M8 10.5l1.5 1.5-1.5 1.5"/>
+          <rect class="proc-rect" x="10" y="10" width="4" height="4" rx="0.5"/>
+          <path class="proc-a2" d="M14.5 12h5M18 10.5l1.5 1.5-1.5 1.5"/>
+          <circle class="proc-c2" cx="21.5" cy="12" r="1.5"/>
+        </svg>
+        <p class="service-title" data-de="Prozesserhebung und -optimierung" data-en="Process Analysis and Optimization">Prozesserhebung und -optimierung</p>
+        <p class="service-desc" data-de="Wir identifizieren Kostentreiber und Engpässe, die Ihr Unternehmen täglich Geld kosten. Das Ergebnis: messbar weniger Aufwand, schnellere Durchlaufzeiten und direkte Auswirkung auf Ihre Marge." data-en="We identify the cost drivers and bottlenecks eating into your margins daily. The result: measurably less effort, faster throughput, direct impact on profitability.">Wir identifizieren Kostentreiber und Engpässe, die Ihr Unternehmen täglich Geld kosten. Das Ergebnis: messbar weniger Aufwand, schnellere Durchlaufzeiten und direkte Auswirkung auf Ihre Marge.</p>
+      </div>
+
+      <div class="service-card fade-in delay-2">
+        <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="3"/>
+          <line class="ray" x1="12"   y1="9"    x2="12"   y2="5"   />
+          <line class="ray" x1="15"   y1="12"   x2="19"   y2="12"  />
+          <line class="ray" x1="12"   y1="15"   x2="12"   y2="19"  />
+          <line class="ray" x1="9"    y1="12"   x2="5"    y2="12"  />
+          <line class="ray" x1="14.12" y1="9.88"  x2="16.95" y2="7.05" />
+          <line class="ray" x1="14.12" y1="14.12" x2="16.95" y2="16.95"/>
+          <line class="ray" x1="9.88"  y1="14.12" x2="7.05"  y2="16.95"/>
+          <line class="ray" x1="9.88"  y1="9.88"  x2="7.05"  y2="7.05" />
+        </svg>
+        <p class="service-title" data-de="KI-Audit" data-en="AI Audit">KI-Audit</p>
+        <p class="service-desc" data-de="Wir zeigen konkret, welche KI-Anwendungen in Ihrem Unternehmen sofort Arbeitszeit einsparen oder Umsatz generieren. Kein Technologie-Hype, sondern ein klarer Business Case mit Zahlen." data-en="We identify exactly which AI applications will save hours or generate revenue in your business. No hype; a clear, numbers-backed business case.">Wir zeigen konkret, welche KI-Anwendungen in Ihrem Unternehmen sofort Arbeitszeit einsparen oder Umsatz generieren. Kein Technologie-Hype, sondern ein klarer Business Case mit Zahlen.</p>
+      </div>
+
+      <div class="service-card fade-in delay-3">
+        <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path class="bolt" d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+        </svg>
+        <p class="service-title" data-de="Digitalisierungsstrategie" data-en="Digitalisation Strategy">Digitalisierungsstrategie</p>
+        <p class="service-desc" data-de="Roadmaps mit klarem Kosten-Nutzen-Kalkül: welche Investition bringt wann welchen Ertrag. Budgetgerecht und speziell für kleine und mittlere Unternehmen konzipiert, ohne Overhead großer Beratungshäuser." data-en="Roadmaps with a clear cost-benefit calculus: which investment delivers which return, and when. Budget-conscious and designed specifically for small and mid-sized businesses, without the overhead of large consultancies.">Roadmaps mit klarem Kosten-Nutzen-Kalkül: welche Investition bringt wann welchen Ertrag. Budgetgerecht und speziell für kleine und mittlere Unternehmen konzipiert, ohne Overhead großer Beratungshäuser.</p>
+      </div>
+
+      <div class="service-card fade-in delay-1">
+        <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8m-4-4v4"/>
+          <circle class="twin-circle" cx="12" cy="10" r="3" stroke-dasharray="2 2"/>
+        </svg>
+        <p class="service-title" data-de="Digital Twin" data-en="Digital Twin">Digital Twin</p>
+        <p class="service-desc" data-de="Ein digitales Abbild Ihrer Abläufe macht verborgene Kosten sichtbar und zeigt Optimierungspotenziale, bevor eine einzige Investition getätigt wird." data-en="A digital replica of your operations makes hidden costs visible and reveals optimisation potential before a single investment is made.">Ein digitales Abbild Ihrer Abläufe macht verborgene Kosten sichtbar und zeigt Optimierungspotenziale, bevor eine einzige Investition getätigt wird.</p>
+      </div>
+
+      <div class="service-card fade-in delay-2">
+        <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="3" width="18" height="18" rx="2"/>
+          <path class="web-h" d="M3 9h18"/>
+          <path class="web-v" d="M9 21V9"/>
+        </svg>
+        <p class="service-title" data-de="Web Design · Digitale Präsenz" data-en="Web Design · Digital Presence">Web Design · Digitale Präsenz</p>
+        <p class="service-desc" data-de="Ihr digitaler Auftritt ist Ihr erster Vertriebskanal. Kein Baukasten, keine Einschränkungen – wir gestalten vollständig nach Ihren Wünschen. Und statt neue Tools einzuführen, integrieren wir nahtlos in das, was bei Ihnen bereits funktioniert." data-en="Your digital presence is your first sales channel. No website builder, no limitations – we design entirely to your specifications. And instead of forcing new tools, we integrate seamlessly with what already works for you.">Ihr digitaler Auftritt ist Ihr erster Vertriebskanal. Kein Baukasten, keine Einschränkungen – wir gestalten vollständig nach Ihren Wünschen. Und statt neue Tools einzuführen, integrieren wir nahtlos in das, was bei Ihnen bereits funktioniert.</p>
+      </div>
+
+      <div class="service-card fade-in delay-3">
+        <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/>
+          <circle cx="9" cy="7" r="4"/>
+          <path class="cm-shadow" d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/>
+        </svg>
+        <p class="service-title" data-de="Change Management · Umsetzungsbegleitung" data-en="Change Management · Implementation Support">Change Management · Umsetzungsbegleitung</p>
+        <p class="service-desc" data-de="Damit neue Prozesse und Technologien wirklich wirken, müssen Menschen sie annehmen und leben. Wir begleiten Ihr Team durch den Wandel und schulen es umfassend – von neuen Technologien bis zu veränderten Abläufen. So kommt Ihre Investition im Alltag an und trägt nachhaltig Früchte." data-en="For new processes and technology to truly work, people need to embrace them. We guide your team through change and provide comprehensive training – from new technologies to revised workflows. So your investment takes root in daily operations and delivers lasting results.">Damit neue Prozesse und Technologien wirklich wirken, müssen Menschen sie annehmen und leben. Wir begleiten Ihr Team durch den Wandel und schulen es umfassend – von neuen Technologien bis zu veränderten Abläufen. So kommt Ihre Investition im Alltag an und trägt nachhaltig Früchte.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- HOW WE WORK -->
+<section id="process">
+  <div class="container">
+    <div class="fade-in" style="text-align:center; margin-bottom:3.5rem;">
+      <p class="section-label" data-de="Unser Vorgehen" data-en="Our Approach">Unser Vorgehen</p>
+      <h2 class="section-title" data-de="Wie wir arbeiten" data-en="How We Work">Wie wir arbeiten</h2>
+      <div class="gold-divider" style="margin:0 auto;"></div>
+    </div>
+    <div class="process-steps">
+      <div class="process-step fade-in delay-1">
+        <div class="step-number">01</div>
+        <p class="step-title" data-de="Diagnose" data-en="Diagnosis">Diagnose</p>
+        <p class="step-desc" data-de="Wir analysieren Ihre Prozesse, Strukturen und Systeme. Engpässe, Kostentreiber und ungenutzte Potenziale werden konkret benannt." data-en="We analyse your processes, structures and systems. Bottlenecks, cost drivers and untapped potential are clearly identified.">Wir analysieren Ihre Prozesse, Strukturen und Systeme. Engpässe, Kostentreiber und ungenutzte Potenziale werden konkret benannt.</p>
+      </div>
+      <div class="process-step fade-in delay-2">
+        <div class="step-number">02</div>
+        <p class="step-title" data-de="Konzept" data-en="Prescription">Konzept</p>
+        <p class="step-desc" data-de="Wir entwickeln einen priorisierten Maßnahmenplan mit klarem Kosten-Nutzen-Kalkül. Sie entscheiden auf Basis von Zahlen, nicht Bauchgefühl." data-en="We develop a prioritised action plan with a clear cost-benefit calculation. You decide based on numbers, not gut feeling.">Wir entwickeln einen priorisierten Maßnahmenplan mit klarem Kosten-Nutzen-Kalkül. Sie entscheiden auf Basis von Zahlen, nicht Bauchgefühl.</p>
+      </div>
+      <div class="process-step fade-in delay-3">
+        <div class="step-number">03</div>
+        <p class="step-title" data-de="Begleitung" data-en="Implementation">Begleitung</p>
+        <p class="step-desc" data-de="Wir setzen gemeinsam mit Ihnen um, schulen Ihr Team und verankern Veränderungen nachhaltig im Alltag. Kein Konzept, das in der Schublade landet." data-en="We implement together with you, train your team and embed changes sustainably into daily operations. No plan that ends up in a drawer.">Wir setzen gemeinsam mit Ihnen um, schulen Ihr Team und verankern Veränderungen nachhaltig im Alltag. Kein Konzept, das in der Schublade landet.</p>
+      </div>
+      <div class="process-step fade-in delay-4">
+        <div class="step-number">04</div>
+        <p class="step-title" data-de="Optimierung" data-en="Ongoing Consulting">Optimierung</p>
+        <p class="step-desc" data-de="Wir messen Ergebnisse, justieren nach und bleiben als Gesprächspartner an Ihrer Seite. Kontinuierliche Verbesserung statt einmaliger Eingriff." data-en="We measure results, adjust as needed and remain your sparring partner. Continuous improvement rather than a one-off intervention.">Wir messen Ergebnisse, justieren nach und bleiben als Gesprächspartner an Ihrer Seite. Kontinuierliche Verbesserung statt einmaliger Eingriff.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BACKGROUND -->
+<section id="background">
+  <div class="container">
+    <div class="fade-in" style="margin-bottom:3.5rem;">
+      <p class="section-label" data-de="Hintergrund" data-en="Background">Hintergrund</p>
+      <h2 class="section-title" data-de="Unsere Expertise" data-en="Our Expertise">Unsere Expertise</h2>
+      <div class="gold-divider"></div>
+    </div>
+    <div class="bg-grid">
+      <div class="bg-person fade-in delay-1">
+        <h3>Yanays Velazquez</h3>
+        <p class="bg-role" data-de="Prozessmanagement &amp; Transformation" data-en="Process Management &amp; Transformation">Prozessmanagement &amp; Transformation</p>
+        <ul class="timeline">
+          <li>
+            <p class="tl-org">BOC Group</p>
+            <p class="tl-desc" data-de="Senior Consultant mit jahrelanger Erfahrung in Managementberatung und Prozessmanagement." data-en="Senior Consultant with years of experience in management consulting and process management.">Senior Consultant mit jahrelanger Erfahrung in Managementberatung und Prozessmanagement.</p>
+          </li>
+          <li>
+            <p class="tl-org" data-de="Kernkompetenz" data-en="Core Competence">Kernkompetenz</p>
+            <p class="tl-desc" data-de="Tiefes Know-how in Prozesserhebung, -modellierung und organisatorischer Transformation für nachhaltigen Wandel." data-en="Deep expertise in process analysis, modelling, and organisational transformation for lasting change.">Tiefes Know-how in Prozesserhebung, -modellierung und organisatorischer Transformation für nachhaltigen Wandel.</p>
+          </li>
+          <!-- [PLATZHALTER: Weitere Stationen / konkrete Projekte / Branchen / messbare Ergebnisse einfügen] -->
+          <!-- [PLATZHALTER: z.B. "X Transformationsprojekte in Y Branchen" oder "Kosteneinsparungen von Z % erzielt"] -->
+        </ul>
+      </div>
+      <div class="bg-person fade-in delay-2">
+        <h3>Hannes Mertins</h3>
+        <p class="bg-role" data-de="KI-Beratung &amp; Automatisierung" data-en="AI Consulting &amp; Automation">KI-Beratung &amp; Automatisierung</p>
+        <ul class="timeline">
+          <li>
+            <p class="tl-org">BOC Group</p>
+            <p class="tl-desc" data-de="B2B-Consulting mit Fokus auf Digitalisierungsprojekte und Software-Rollouts im Mittelstand." data-en="B2B consulting with a focus on digitalisation projects and software rollouts for mid-sized companies.">B2B-Consulting mit Fokus auf Digitalisierungsprojekte und Software-Rollouts im Mittelstand.</p>
+          </li>
+          <li>
+            <p class="tl-org" data-de="Spezialisierung" data-en="Specialisation">Spezialisierung</p>
+            <p class="tl-desc" data-de="KI-Beratung und Automatisierungslösungen für kleine und mittlere Unternehmen im DACH-Raum, von der Strategie bis zur Implementierung." data-en="AI consulting and automation solutions for small and mid-sized businesses in the DACH region, from strategy to implementation.">KI-Beratung und Automatisierungslösungen für kleine und mittlere Unternehmen im DACH-Raum, von der Strategie bis zur Implementierung.</p>
+          </li>
+          <!-- [PLATZHALTER: Weitere Stationen / konkrete Projekte / Branchen / messbare Ergebnisse einfügen] -->
+          <!-- [PLATZHALTER: z.B. "X Automatisierungsprojekte umgesetzt" oder "Y Stunden Arbeitszeit pro Monat eingespart"] -->
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY US -->
+<section id="why">
+  <div class="container">
+    <div class="fade-in" style="text-align:center; margin-bottom:3.5rem;">
+      <p class="section-label" data-de="Warum wir" data-en="Why Us">Warum wir</p>
+      <h2 class="section-title" data-de="Unser Versprechen" data-en="Our Promise">Unser Versprechen</h2>
+      <div class="gold-divider" style="margin:0 auto;"></div>
+    </div>
+    <div class="why-grid">
+      <div class="why-card fade-in delay-1">
+        <svg class="why-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 20V4"/>
+          <path d="M4 20h16"/>
+          <polyline class="chart-line" points="5,18 10,12 13,15 19,5"/>
+          <circle class="chart-dot" cx="19" cy="5" r="1.5" fill="currentColor" stroke="none"/>
+        </svg>
+        <p class="why-title" data-de="Messbare Ergebnisse, keine Theorie" data-en="Measurable results, not theory">Messbare Ergebnisse, keine Theorie</p>
+        <p class="why-desc" data-de="Jede Empfehlung ist mit konkreten Zahlen unterlegt: Einsparungen, Umsatzpotenzial, Amortisationszeit. Was sich nicht messen lässt, empfehlen wir nicht." data-en="Every recommendation comes with concrete numbers: savings, revenue potential, payback period. If it can't be measured, we don't recommend it.">Jede Empfehlung ist mit konkreten Zahlen unterlegt: Einsparungen, Umsatzpotenzial, Amortisationszeit. Was sich nicht messen lässt, empfehlen wir nicht.</p>
+      </div>
+      <div class="why-card fade-in delay-2">
+        <svg class="why-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="9" cy="12" r="5"/>
+          <circle cx="15" cy="12" r="5"/>
+        </svg>
+        <p class="why-title" data-de="Prozess-Know-how trifft KI-Kompetenz" data-en="Process Expertise meets AI Capability">Prozess-Know-how trifft KI-Kompetenz</p>
+        <p class="why-desc" data-de="Wer Prozesse nicht kennt, implementiert KI an der falschen Stelle. Wer KI nicht kennt, optimiert manuell, was automatisiert werden könnte. Wir bringen beides zusammen. Das ist unser Alleinstellungsmerkmal." data-en="Without process knowledge, AI lands in the wrong place. Without AI knowledge, you manually optimise what could be automated. We bring both together. That is our differentiator.">Wer Prozesse nicht kennt, implementiert KI an der falschen Stelle. Wer KI nicht kennt, optimiert manuell, was automatisiert werden könnte. Wir bringen beides zusammen. Das ist unser Alleinstellungsmerkmal.</p>
+      </div>
+      <div class="why-card fade-in delay-3">
+        <svg class="why-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <circle class="e2e-c1" cx="3.5" cy="12" r="2.5"/>
+          <path class="e2e-a1" d="M6.5 12h10.5M15 9.5l2.5 2.5-2.5 2.5"/>
+          <circle class="e2e-c2" cx="20.5" cy="12" r="2.5"/>
+        </svg>
+        <p class="why-title" data-de="End-to-End aus einer Hand" data-en="End-to-End from one source">End-to-End aus einer Hand</p>
+        <p class="why-desc" data-de="Von der Analyse bis zum messbaren Ergebnis: ein Ansprechpartner, ein Ziel, volle Verantwortung." data-en="From analysis to measurable outcome: one contact, one goal, full accountability.">Von der Analyse bis zum messbaren Ergebnis: ein Ansprechpartner, ein Ziel, volle Verantwortung.</p>
+      </div>
+      <div class="why-card fade-in delay-4">
+        <svg class="why-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          <path class="dsgvo-check" d="M9 12l2 2 4-4"/>
+        </svg>
+        <p class="why-title" data-de="DSGVO-konform &amp; regelkonform" data-en="GDPR-compliant &amp; fully compliant">DSGVO-konform &amp; regelkonform</p>
+        <p class="why-desc" data-de="Wir arbeiten streng konform mit der DSGVO und allen einschlägigen Vorschriften. Datenschutz und Rechtssicherheit sind bei jedem Projekt von Anfang an eingeplant, nicht nachträglich hinzugefügt." data-en="We work in strict compliance with the GDPR and all relevant regulations. Data protection and legal certainty are built into every project from the start – not added as an afterthought.">Wir arbeiten streng konform mit der DSGVO und allen einschlägigen Vorschriften. Datenschutz und Rechtssicherheit sind bei jedem Projekt von Anfang an eingeplant, nicht nachträglich hinzugefügt.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <div class="contact-inner">
+      <p class="section-label fade-in" data-de="Kontakt" data-en="Contact">Kontakt</p>
+      <h2 class="section-title fade-in" data-de="Lassen Sie uns sprechen" data-en="Let's talk">Lassen Sie uns sprechen</h2>
+      <div class="gold-divider fade-in" style="margin:0 auto 1.5rem;"></div>
+      <p class="contact-sub fade-in" data-de="Wir freuen uns auf Ihre Anfrage." data-en="We look forward to your enquiry.">Wir freuen uns auf Ihre Anfrage.</p>
+      <a href="mailto:hannes.mertins@gmail.com" class="contact-email fade-in">hannes.mertins@gmail.com</a>
+      <form class="contact-form fade-in" id="contactForm" onsubmit="handleSubmit(event)">
+        <div class="form-row">
+          <div class="form-group">
+            <label data-de="Name" data-en="Name">Name</label>
+            <input type="text" required placeholder="Max Mustermann" data-ph-de="Max Mustermann" data-ph-en="Jane Doe" />
+          </div>
+          <div class="form-group">
+            <label data-de="E-Mail" data-en="Email">E-Mail</label>
+            <input type="email" required placeholder="max@firma.de" data-ph-de="max@firma.de" data-ph-en="jane@company.com" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label data-de="Nachricht" data-en="Message">Nachricht</label>
+          <textarea required placeholder="Schildern Sie uns kurz Ihr Anliegen ..." data-ph-de="Schildern Sie uns kurz Ihr Anliegen ..." data-ph-en="Tell us briefly about your project ..."></textarea>
+        </div>
+        <div class="form-submit">
+          <button type="submit" class="btn-gold" data-de="Nachricht senden" data-en="Send Message">Nachricht senden</button>
+        </div>
+        <div class="success-msg" id="successMsg">
+          <span data-de="Vielen Dank! Wir melden uns in Kürze." data-en="Thank you! We will be in touch shortly.">Vielen Dank! Wir melden uns in Kürze.</span>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p class="footer-names">Yanays Velazquez · Hannes Mertins</p>
+  <ul class="footer-links">
+    <li><a onclick="openImpressum()" data-de="Impressum" data-en="Legal Notice">Impressum</a></li>
+    <li><a onclick="openDatenschutz()" data-de="Datenschutz" data-en="Privacy Policy">Datenschutz</a></li>
+  </ul>
+  <p class="footer-copy">&copy; 2026 Velazquez · Mertins. <span data-de="Alle Rechte vorbehalten." data-en="All rights reserved.">Alle Rechte vorbehalten.</span></p>
+</footer>
+
+<!-- IMPRESSUM MODAL -->
+<div class="modal-overlay" id="impressumModal" onclick="closeImpressum(event)">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeImpressum(null, true)">✕</button>
+    <p class="modal-label" data-de="Rechtliches" data-en="Legal">Rechtliches</p>
+    <h2 class="modal-title" data-de="Impressum" data-en="Legal Notice">Impressum</h2>
+    <div class="modal-divider"></div>
+
+    <div class="modal-section">
+      <h4 data-de="Angaben gemäß § 5 TMG" data-en="Information pursuant to § 5 TMG">Angaben gemäß § 5 TMG</h4>
+      <p>Hannes Mertins<br>Markgrafendamm 30<br>10245 Berlin<br>Deutschland</p>
+    </div>
+
+    <div class="modal-section">
+      <h4 data-de="Kontakt" data-en="Contact">Kontakt</h4>
+      <p><a href="mailto:hannes.mertins@gmail.com">hannes.mertins@gmail.com</a></p>
+    </div>
+
+    <div class="modal-section">
+      <h4 data-de="Verantwortlich für den Inhalt" data-en="Responsible for content">Verantwortlich für den Inhalt</h4>
+      <p>Hannes Mertins, Markgrafendamm 30, 10245 Berlin</p>
+    </div>
+
+    <p class="modal-note" data-de="Die durch die Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten unterliegen dem deutschen Urheberrecht. Die Vervielfältigung, Bearbeitung, Verbreitung und jede Art der Verwertung außerhalb der Grenzen des Urheberrechtes bedürfen der schriftlichen Zustimmung des jeweiligen Autors."
+       data-en="The content and works on these pages created by the site operators are subject to German copyright law. Reproduction, editing, distribution, and any kind of use outside the limits of copyright law require the written consent of the respective author.">
+      Die durch die Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten unterliegen dem deutschen Urheberrecht. Die Vervielfältigung, Bearbeitung, Verbreitung und jede Art der Verwertung außerhalb der Grenzen des Urheberrechtes bedürfen der schriftlichen Zustimmung des jeweiligen Autors.
+    </p>
+  </div>
+</div>
+
+<!-- DATENSCHUTZ MODAL -->
+<div class="modal-overlay" id="datenschutzModal" onclick="closeDatenschutz(event)">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeDatenschutz(null, true)">✕</button>
+    <p class="modal-label" data-de="Rechtliches" data-en="Legal">Rechtliches</p>
+    <h2 class="modal-title" data-de="Datenschutz" data-en="Privacy Policy">Datenschutz</h2>
+    <div class="modal-divider"></div>
+
+    <div class="modal-section">
+      <h4 data-de="Verantwortlicher" data-en="Controller">Verantwortlicher</h4>
+      <p>Hannes Mertins<br>Markgrafendamm 30<br>10245 Berlin<br><a href="mailto:hannes.mertins@gmail.com">hannes.mertins@gmail.com</a></p>
+    </div>
+
+    <div class="modal-section">
+      <h4 data-de="Erhobene Daten" data-en="Data Collected">Erhobene Daten</h4>
+      <p data-de="Diese Website erhebt keine personenbezogenen Daten, sofern Sie diese nicht freiwillig über das Kontaktformular übermitteln. Dabei werden ausschließlich Name, E-Mail-Adresse und Nachrichteninhalt verarbeitet und ausschließlich zur Beantwortung Ihrer Anfrage genutzt." data-en="This website does not collect personal data unless you voluntarily submit it via the contact form. Only your name, email address and message are processed, solely to respond to your enquiry.">Diese Website erhebt keine personenbezogenen Daten, sofern Sie diese nicht freiwillig über das Kontaktformular übermitteln. Dabei werden ausschließlich Name, E-Mail-Adresse und Nachrichteninhalt verarbeitet und ausschließlich zur Beantwortung Ihrer Anfrage genutzt.</p>
+    </div>
+
+    <div class="modal-section">
+      <h4 data-de="Cookies" data-en="Cookies">Cookies</h4>
+      <p data-de="Diese Website setzt ausschließlich technisch notwendige Cookies ein (zur Speicherung Ihrer Cookie-Einstellung). Es werden keine Tracking-, Analyse- oder Werbe-Cookies verwendet." data-en="This website uses only technically necessary cookies (to store your cookie preference). No tracking, analytics or advertising cookies are used.">Diese Website setzt ausschließlich technisch notwendige Cookies ein (zur Speicherung Ihrer Cookie-Einstellung). Es werden keine Tracking-, Analyse- oder Werbe-Cookies verwendet.</p>
+    </div>
+
+    <div class="modal-section">
+      <h4 data-de="Externe Ressourcen" data-en="External Resources">Externe Ressourcen</h4>
+      <p data-de="Diese Website lädt keine externen Schriften, Skripte oder sonstige Ressourcen von Drittanbietern. Es werden keine Daten an externe Server übertragen." data-en="This website loads no external fonts, scripts or other third-party resources. No data is transferred to external servers.">Diese Website lädt keine externen Schriften, Skripte oder sonstige Ressourcen von Drittanbietern. Es werden keine Daten an externe Server übertragen.</p>
+    </div>
+
+    <div class="modal-section">
+      <h4 data-de="Ihre Rechte (DSGVO)" data-en="Your Rights (GDPR)">Ihre Rechte (DSGVO)</h4>
+      <p data-de="Sie haben das Recht auf Auskunft, Berichtigung, Löschung und Einschränkung der Verarbeitung Ihrer personenbezogenen Daten sowie das Recht auf Datenübertragbarkeit und Widerspruch. Wenden Sie sich dazu jederzeit an die oben genannte Adresse." data-en="You have the right to access, rectify, erase and restrict the processing of your personal data, as well as rights to data portability and objection. Please contact the address above at any time.">Sie haben das Recht auf Auskunft, Berichtigung, Löschung und Einschränkung der Verarbeitung Ihrer personenbezogenen Daten sowie das Recht auf Datenübertragbarkeit und Widerspruch. Wenden Sie sich dazu jederzeit an die oben genannte Adresse.</p>
+    </div>
+
+    <p class="modal-note" data-de="Stand: April 2026. Bei Fragen zum Datenschutz stehen wir Ihnen jederzeit zur Verfügung." data-en="As of April 2026. For any data protection questions, please do not hesitate to contact us.">Stand: April 2026. Bei Fragen zum Datenschutz stehen wir Ihnen jederzeit zur Verfügung.</p>
+  </div>
+</div>
+
+<!-- COOKIE BANNER -->
+<div class="cookie-banner" id="cookieBanner">
+  <p class="cookie-text">
+    <span data-de="Diese Website verwendet ausschließlich technisch notwendige Cookies. Es werden keine Tracking- oder Werbe-Cookies eingesetzt. Weitere Informationen finden Sie in unserer " data-en="This website uses only technically necessary cookies. No tracking or advertising cookies are used. For more information see our ">Diese Website verwendet ausschließlich technisch notwendige Cookies. Es werden keine Tracking- oder Werbe-Cookies eingesetzt. Weitere Informationen finden Sie in unserer </span><a href="#" data-de="Datenschutzerklärung." data-en="Privacy Policy.">Datenschutzerklärung.</a>
+  </p>
+  <div class="cookie-actions">
+    <button class="cookie-btn decline" onclick="dismissCookies()" data-de="Ablehnen" data-en="Decline">Ablehnen</button>
+    <button class="cookie-btn accept" onclick="acceptCookies()" data-de="Verstanden" data-en="Got it">Verstanden</button>
+  </div>
+</div>
+
+<script>
+  // LANGUAGE
+  let currentLang = 'de';
+
+  function setLang(lang) {
+    currentLang = lang;
+    document.documentElement.lang = lang;
+    document.querySelectorAll('[data-de]').forEach(el => {
+      el.textContent = el.dataset[lang];
+    });
+    document.querySelectorAll('[data-ph-de]').forEach(el => {
+      el.placeholder = el.dataset[lang === 'de' ? 'phDe' : 'phEn'];
+    });
+    document.getElementById('btn-de').classList.toggle('active', lang === 'de');
+    document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+  }
+
+  // STICKY NAV
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 60);
+  });
+
+  // MOBILE DRAWER
+  function openDrawer()  { document.getElementById('navDrawer').classList.add('open'); }
+  function closeDrawer() { document.getElementById('navDrawer').classList.remove('open'); }
+
+  // FADE IN
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+  // CONTACT FORM
+  function handleSubmit(e) {
+    e.preventDefault();
+    const msg = document.getElementById('successMsg');
+    msg.style.display = 'block';
+    msg.querySelector('[data-de]').textContent = msg.querySelector('[data-de]').dataset[currentLang];
+    e.target.reset();
+    setTimeout(() => { msg.style.display = 'none'; }, 5000);
+  }
+
+  // IMPRESSUM MODAL
+  function openImpressum() {
+    document.getElementById('impressumModal').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeImpressum(event, force) {
+    if (force || (event && event.target === document.getElementById('impressumModal'))) {
+      document.getElementById('impressumModal').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+  }
+
+  // DATENSCHUTZ MODAL
+  function openDatenschutz() {
+    document.getElementById('datenschutzModal').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeDatenschutz(event, force) {
+    if (force || (event && event.target === document.getElementById('datenschutzModal'))) {
+      document.getElementById('datenschutzModal').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+  }
+
+  // COOKIE BANNER
+  function acceptCookies() {
+    localStorage.setItem('cookieConsent', 'accepted');
+    document.getElementById('cookieBanner').classList.add('hidden');
+  }
+  function dismissCookies() {
+    localStorage.setItem('cookieConsent', 'declined');
+    document.getElementById('cookieBanner').classList.add('hidden');
+  }
+  if (localStorage.getItem('cookieConsent')) {
+    document.getElementById('cookieBanner').classList.add('hidden');
+  }
+</script>
+</body>
+</html>
