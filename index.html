@@ -756,7 +756,42 @@
     .fade-in.delay-5 { transition-delay: 0.5s; }
 
     /* COMPLIANCE */
-    #compliance { background: var(--bg); }
+    #compliance { background: var(--white); }
+    .projects-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+    @media (max-width: 700px) { .projects-grid { grid-template-columns: 1fr; } }
+    .project-card {
+      display: block;
+      background: var(--bg);
+      border-radius: var(--radius);
+      padding: 2.5rem 2rem;
+      border: 1px solid rgba(59,7,100,0.08);
+      text-decoration: none;
+      transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+    }
+    .project-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 48px rgba(59,7,100,0.1);
+      border-color: var(--gold);
+    }
+    .project-tag {
+      font-size: 0.72rem; font-weight: 600; letter-spacing: 0.15em;
+      text-transform: uppercase; color: var(--gold); margin-bottom: 1rem;
+    }
+    .project-title {
+      font-family: var(--font-serif); font-size: 1.3rem; font-weight: 700;
+      color: var(--purple); margin-bottom: 1rem; line-height: 1.3;
+    }
+    .project-desc {
+      font-size: 0.9rem; color: var(--text-muted); line-height: 1.75; margin-bottom: 1.5rem;
+    }
+    .project-link {
+      font-size: 0.82rem; font-weight: 600; color: var(--gold); letter-spacing: 0.04em;
+    }
+
     .compliance-lead {
       font-size: 1.05rem;
       color: var(--text-muted);
@@ -1234,12 +1269,24 @@
 <!-- COMPLIANCE -->
 <section id="compliance">
   <div class="container">
-    <div class="fade-in" style="max-width:720px; margin: 0 auto; text-align:center;">
-      <p class="section-label" data-de="Gesundheitswesen" data-en="Healthcare">Gesundheitswesen</p>
-      <h2 class="section-title" data-de="Digitalisierung ist gesetzlich vorgegeben" data-en="Digitalisation is legally mandated">Digitalisierung ist gesetzlich vorgegeben</h2>
-      <div class="gold-divider" style="margin: 0 auto 2rem;"></div>
-      <p class="compliance-lead" style="margin: 0 auto 2.5rem;" data-de="DigiG, DVG und verwandte Gesetze verpflichten Praxen und Pflegeeinrichtungen zur digitalen Transformation. Wer nicht handelt, riskiert Honorarkürzungen und den Verlust von Geschäftsbeziehungen. Wir übersetzen regulatorische Anforderungen in konkrete Maßnahmen." data-en="The DigiG, DVG and related legislation mandate practices and care facilities to digitally transform. Those who fail to act risk fee reductions and the loss of business relationships. We translate regulatory requirements into concrete actions.">DigiG, DVG und verwandte Gesetze verpflichten Praxen und Pflegeeinrichtungen zur digitalen Transformation. Wer nicht handelt, riskiert Honorarkürzungen und den Verlust von Geschäftsbeziehungen. Wir übersetzen regulatorische Anforderungen in konkrete Maßnahmen.</p>
-      <a href="gesundheitswesen.html" class="btn-gold" data-de="Mehr erfahren" data-en="Learn more">Mehr erfahren</a>
+    <div class="fade-in" style="text-align:center; margin-bottom:3.5rem;">
+      <p class="section-label" data-de="Aktuelle Projekte" data-en="Current Projects">Aktuelle Projekte</p>
+      <h2 class="section-title" data-de="Wo wir gerade arbeiten" data-en="Where we are working">Wo wir gerade arbeiten</h2>
+      <div class="gold-divider" style="margin: 0 auto 0;"></div>
+    </div>
+    <div class="projects-grid fade-in">
+      <a class="project-card" href="gesundheitswesen.html">
+        <div class="project-tag" data-de="Yanays Velazquez" data-en="Yanays Velazquez">Yanays Velazquez</div>
+        <h3 class="project-title" data-de="Digitalisierung im Gesundheitswesen" data-en="Healthcare Digitalisation">Digitalisierung im Gesundheitswesen</h3>
+        <p class="project-desc" data-de="DigiG, ePA, E-Rezept: Praxen und Pflegeeinrichtungen stehen unter gesetzlichem Zugzwang. Wir übersetzen Regulatorik in konkrete Maßnahmen." data-en="DigiG, ePA, e-prescription: practices and care facilities face legal pressure to act. We translate regulation into concrete steps.">DigiG, ePA, E-Rezept: Praxen und Pflegeeinrichtungen stehen unter gesetzlichem Zugzwang. Wir übersetzen Regulatorik in konkrete Maßnahmen.</p>
+        <span class="project-link" data-de="Mehr erfahren" data-en="Learn more">Mehr erfahren →</span>
+      </a>
+      <a class="project-card" href="automatisierung.html">
+        <div class="project-tag" data-de="Hannes Mertins" data-en="Hannes Mertins">Hannes Mertins</div>
+        <h3 class="project-title" data-de="Automatisierung &amp; Tool-Integration" data-en="Automation &amp; Tool Integration">Automatisierung &amp; Tool-Integration</h3>
+        <p class="project-desc" data-de="KI-gestützte Workflows, Systemanbindungen und smarte Automatisierung: weniger manuelle Arbeit, mehr Verlässlichkeit, direkt messbar." data-en="AI-powered workflows, system integrations and smart automation: less manual work, more reliability, directly measurable.">KI-gestützte Workflows, Systemanbindungen und smarte Automatisierung: weniger manuelle Arbeit, mehr Verlässlichkeit, direkt messbar.</p>
+        <span class="project-link" data-de="Mehr erfahren" data-en="Learn more">Mehr erfahren →</span>
+      </a>
     </div>
   </div>
 </section>

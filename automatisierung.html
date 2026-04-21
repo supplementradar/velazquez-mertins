@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Automatisierung &amp; Tool-Integration – Velazquez · Mertins</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --purple: #3B0764;
+      --gold: #C9A84C;
+      --gold-light: #E2C97A;
+      --bg: #F9F7F4;
+      --text: #1A1A1A;
+      --text-muted: #5A5A5A;
+      --white: #FFFFFF;
+      --radius: 12px;
+      --font-serif: Georgia, 'Times New Roman', serif;
+      --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font-sans); background: var(--bg); color: var(--text); line-height: 1.65; }
+
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      padding: 1.25rem 3rem;
+      display: flex; align-items: center; justify-content: space-between;
+      background: rgba(249,247,244,0.97);
+      box-shadow: 0 1px 20px rgba(0,0,0,0.08);
+      backdrop-filter: blur(10px);
+    }
+    .nav-wordmark {
+      font-family: var(--font-serif); font-size: 1.1rem; font-weight: 600;
+      color: var(--purple); letter-spacing: 0.02em; text-decoration: none;
+    }
+    .nav-back {
+      font-size: 0.875rem; font-weight: 500; color: var(--text-muted);
+      text-decoration: none; letter-spacing: 0.03em; transition: color 0.2s;
+      display: flex; align-items: center; gap: 0.4rem;
+    }
+    .nav-back:hover { color: var(--gold); }
+    @media (max-width: 900px) { nav { padding: 1.25rem 1.5rem; } }
+
+    .page-hero {
+      background: linear-gradient(160deg, #3B0764 0%, #2A0449 60%, #1A0230 100%);
+      padding: 9rem 2rem 5rem; text-align: center;
+    }
+    .page-hero .eyebrow {
+      font-size: 0.75rem; font-weight: 600; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--gold); margin-bottom: 1rem;
+    }
+    .page-hero h1 {
+      font-family: var(--font-serif);
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 700; color: var(--white); margin-bottom: 1.25rem;
+    }
+    .page-hero p {
+      font-size: 1.05rem; color: rgba(255,255,255,0.72);
+      max-width: 620px; margin: 0 auto; line-height: 1.8;
+    }
+
+    .content { max-width: 720px; margin: 0 auto; padding: 6rem 2rem; text-align: center; }
+    .content p { font-size: 1rem; color: var(--text-muted); }
+
+    .cta-strip {
+      background: linear-gradient(160deg, #3B0764 0%, #2A0449 100%);
+      text-align: center; padding: 5rem 2rem;
+    }
+    .cta-strip h2 {
+      font-family: var(--font-serif); font-size: clamp(1.6rem, 3vw, 2.2rem);
+      color: var(--white); margin-bottom: 1rem;
+    }
+    .cta-strip p { color: rgba(255,255,255,0.65); margin-bottom: 2rem; font-size: 1rem; }
+    .btn-gold {
+      display: inline-block; padding: 0.9rem 2.2rem;
+      background: var(--gold); color: var(--purple);
+      font-weight: 700; font-size: 0.875rem; letter-spacing: 0.06em;
+      text-transform: uppercase; text-decoration: none; border-radius: 4px;
+      transition: background 0.2s;
+    }
+    .btn-gold:hover { background: var(--gold-light); }
+
+    footer {
+      text-align: center; padding: 2.5rem 2rem;
+      font-size: 0.82rem; color: var(--text-muted);
+      border-top: 1px solid rgba(59,7,100,0.07);
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-wordmark" href="index.html">V · M</a>
+  <a class="nav-back" href="index.html">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+    Zurück
+  </a>
+</nav>
+
+<div class="page-hero">
+  <p class="eyebrow">Hannes Mertins</p>
+  <h1>Automatisierung &amp; Tool-Integration</h1>
+  <p>KI-gestützte Workflows, Systemanbindungen und smarte Automatisierung: weniger manuelle Arbeit, mehr Verlässlichkeit, direkt messbar.</p>
+</div>
+
+<div class="content">
+  <p>Dieser Bereich wird gerade ausgebaut. Sprechen Sie uns direkt an.</p>
+</div>
+
+<div class="cta-strip">
+  <h2>Interesse an Automatisierung?</h2>
+  <p>Wir schauen uns gemeinsam an, wo in Ihrem Betrieb die meiste Zeit verloren geht.</p>
+  <a class="btn-gold" href="index.html#contact">Kontakt aufnehmen</a>
+</div>
+
+<footer>
+  &copy; 2026 Velazquez &middot; Mertins. Alle Rechte vorbehalten.
+</footer>
+
+</body>
+</html>
