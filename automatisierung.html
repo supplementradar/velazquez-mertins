@@ -62,9 +62,89 @@
       max-width: 620px; margin: 0 auto; line-height: 1.8;
     }
 
-    .content { max-width: 720px; margin: 0 auto; padding: 6rem 2rem; text-align: center; }
-    .content p { font-size: 1rem; color: var(--text-muted); }
+    .container { max-width: 960px; margin: 0 auto; padding: 0 2rem; }
+    section { padding: 5rem 2rem; }
+    @media (max-width: 580px) { section { padding: 4rem 1.25rem; } }
 
+    .section-label {
+      font-size: 0.72rem; font-weight: 600; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--gold); margin-bottom: 0.75rem;
+    }
+    .section-title {
+      font-family: var(--font-serif);
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      font-weight: 700; color: var(--purple); margin-bottom: 1.25rem; line-height: 1.2;
+    }
+    .gold-divider { width: 48px; height: 2px; background: var(--gold); margin-bottom: 2.5rem; }
+
+    .lead {
+      font-size: 1.05rem; color: var(--text-muted); line-height: 1.8;
+      max-width: 680px; margin-bottom: 3.5rem;
+    }
+
+    /* PHASES */
+    .phases {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+      margin-bottom: 5rem;
+    }
+    @media (max-width: 900px) { .phases { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 580px) { .phases { grid-template-columns: 1fr; } }
+
+    .phase {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 2rem 1.5rem;
+      border-top: 3px solid var(--gold);
+    }
+    .phase-num {
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.15em;
+      text-transform: uppercase; color: var(--gold); margin-bottom: 0.6rem;
+    }
+    .phase-title {
+      font-family: var(--font-serif); font-size: 1.05rem; font-weight: 600;
+      color: var(--purple); margin-bottom: 0.6rem;
+    }
+    .phase-desc {
+      font-size: 0.875rem; color: var(--text-muted); line-height: 1.7;
+    }
+
+    /* RESULTS */
+    .results-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+    @media (max-width: 900px) { .results-grid { grid-template-columns: 1fr; } }
+
+    .result-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 2rem 1.75rem;
+      border: 1px solid rgba(59,7,100,0.08);
+    }
+    .result-title {
+      font-family: var(--font-serif); font-size: 1.05rem; font-weight: 600;
+      color: var(--purple); margin-bottom: 0.6rem;
+    }
+    .result-desc {
+      font-size: 0.875rem; color: var(--text-muted); line-height: 1.7;
+    }
+
+    /* WHO */
+    .who-block {
+      background: linear-gradient(160deg, #3B0764 0%, #2A0449 100%);
+      border-radius: var(--radius);
+      padding: 3rem 2.5rem;
+      max-width: 680px;
+    }
+    .who-block p {
+      font-size: 1.05rem; color: rgba(255,255,255,0.8); line-height: 1.8;
+    }
+    .who-block strong { color: var(--gold); font-weight: 600; }
+
+    /* CTA */
     .cta-strip {
       background: linear-gradient(160deg, #3B0764 0%, #2A0449 100%);
       text-align: center; padding: 5rem 2rem;
@@ -101,18 +181,76 @@
 </nav>
 
 <div class="page-hero">
-  <p class="eyebrow">Hannes Mertins</p>
+  <p class="eyebrow">Aktuelle Projekte</p>
   <h1>Automatisierung &amp; Tool-Integration</h1>
-  <p>KI-gestützte Workflows, Systemanbindungen und smarte Automatisierung: weniger manuelle Arbeit, mehr Verlässlichkeit, direkt messbar.</p>
+  <p>Viele Unternehmen haben funktionierende Prozesse, die trotzdem täglich Arbeitszeit kosten. Nicht weil etwas kaputt ist, sondern weil niemand die Zeit hatte, es zu automatisieren.</p>
 </div>
 
-<div class="content">
-  <p>Dieser Bereich wird gerade ausgebaut. Sprechen Sie uns direkt an.</p>
-</div>
+<section style="background: var(--bg);">
+  <div class="container">
+    <p class="section-label">Vorgehen</p>
+    <h2 class="section-title">Vier Phasen, ein Ergebnis</h2>
+    <div class="gold-divider"></div>
+    <p class="lead">Jedes Projekt beginnt mit Verstehen, nicht mit Umsetzen. Erst wenn klar ist, wo tatsächlich Potenzial liegt, wird gebaut.</p>
+
+    <div class="phases">
+      <div class="phase">
+        <p class="phase-num">01</p>
+        <p class="phase-title">Diagnose</p>
+        <p class="phase-desc">Wo verliert Ihr Betrieb Arbeitszeit? Welche Abläufe laufen auf Zuruf, in Excel oder per E-Mail, obwohl das nicht sein müsste? Diese Phase liefert ein klares Bild.</p>
+      </div>
+      <div class="phase">
+        <p class="phase-num">02</p>
+        <p class="phase-title">Empfehlung</p>
+        <p class="phase-desc">Auf Basis der Diagnose folgt ein konkreter Maßnahmenplan. Kein generisches Konzept, sondern eine Empfehlung, die zu Ihrem Betrieb, Ihren Tools und Ihrem Budget passt.</p>
+      </div>
+      <div class="phase">
+        <p class="phase-num">03</p>
+        <p class="phase-title">Umsetzung</p>
+        <p class="phase-desc">Tools werden gebaut, Workflows automatisiert, Systeme verbunden. Das Ergebnis integriert sich nahtlos in das, was bereits vorhanden ist.</p>
+      </div>
+      <div class="phase">
+        <p class="phase-num">04</p>
+        <p class="phase-title">Betreuung</p>
+        <p class="phase-desc">Nach dem Projekt ist vor dem nächsten Schritt. Wer möchte, wird kontinuierlich betreut: Wartung, Weiterentwicklung, Sparring wenn neue Fragen entstehen.</p>
+      </div>
+    </div>
+
+    <p class="section-label">Ergebnisse</p>
+    <h2 class="section-title">Was am Ende dabei herauskommt</h2>
+    <div class="gold-divider"></div>
+
+    <div class="results-grid">
+      <div class="result-card">
+        <p class="result-title">Fertige Tools</p>
+        <p class="result-desc">Maßgeschneiderte Lösungen gebaut mit Make oder eigenem Code, die direkt im Tagesgeschäft eingesetzt werden können, ohne technisches Vorwissen.</p>
+      </div>
+      <div class="result-card">
+        <p class="result-title">Optimierte Assets</p>
+        <p class="result-desc">Bestehende Websites, Systeme und Tools werden auf ihr tatsächliches Potenzial gebracht. Oft steckt in dem, was schon vorhanden ist, mehr als gedacht.</p>
+      </div>
+      <div class="result-card">
+        <p class="result-title">Klare Handlungsempfehlungen</p>
+        <p class="result-desc">Nicht jede Frage braucht ein neues Tool. Manchmal ist ein strukturierter Plan der wertvollere Output, der intern dann umgesetzt werden kann.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="background: var(--white);">
+  <div class="container">
+    <p class="section-label">Für wen</p>
+    <h2 class="section-title">Inhabergeführte Unternehmen</h2>
+    <div class="gold-divider"></div>
+    <div class="who-block">
+      <p>Der Fokus liegt auf <strong>inhabergeführten Unternehmen mit 5 bis 50 Mitarbeitenden</strong>. Hier sind Entscheidungswege kurz, Veränderungen schnell spürbar und der Nutzen einer Automatisierung direkt messbar. Genau diese Unternehmen haben selten eine eigene IT-Abteilung und oft das größte Potenzial.</p>
+    </div>
+  </div>
+</section>
 
 <div class="cta-strip">
-  <h2>Interesse an Automatisierung?</h2>
-  <p>Wir schauen uns gemeinsam an, wo in Ihrem Betrieb die meiste Zeit verloren geht.</p>
+  <h2>Lohnt sich das für meinen Betrieb?</h2>
+  <p>Das lässt sich oft schnell herausfinden. Sprechen Sie uns an.</p>
   <a class="btn-gold" href="index.html#contact">Kontakt aufnehmen</a>
 </div>
 
